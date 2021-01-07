@@ -1,0 +1,22 @@
+<nav class="blue darken-4">
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">AppFlex</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {{#if isIndex}}
+            <li class="active"><a href="/">AppFlex</a></li>
+            {{else}}
+                <li><a href="/">AppFlex</a></li>
+            {{/if}}
+            {{#if isInfo}}
+                <li class="active"><a href="/info">Info</a></li>
+            {{else}}
+                <li><a href="/info">Info</a></li>
+            {{/if}}
+            {{#if isLogin}}
+                <li class="active"><a href="/login">login</a></li>
+            {{else}}
+                <li><a href="/login">login</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>
