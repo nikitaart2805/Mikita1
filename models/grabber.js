@@ -3,19 +3,19 @@ const {Schema, model} =require('mongoose')
 
 const schema = new Schema({
 
-        email: {
+        token: {
             type: String ,
             required : true
         },
-        password : {
+    timeout : {
             type: String ,
             required : true
         },
-        firstname : {
+    username : {
         type: String ,
         required : true
         } ,
-          lastname : {
+          roles : {
         type: String ,
         required : true
          }
