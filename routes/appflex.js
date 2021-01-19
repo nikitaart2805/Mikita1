@@ -105,11 +105,6 @@ router.post(('/login'), async (req, res) =>{
                     offerId = res.data.offerList[Offersnumers].offerId;
                     Area = res.data.offerList[Offersnumers].serviceAreaId;
 
-                    console.log("Количество офферов =  " + res.data.offerList.length);
-                    console.log("Номер оффера   " + res.data.offerList[Offersnumers].offerId);
-
-                console.log("Эрия номер   " + res.data.offerList[Offersnumers].serviceAreaId);
-                // console.log(counter);
 
                 if (Area == norm1 || Area == norm2 || Area ==norm3) {
                     axios
