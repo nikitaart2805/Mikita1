@@ -2,6 +2,7 @@ const { Router } =require('express')
 const grabber = require('../models/grabber')
 const router = Router()
  const axios = require('axios')
+ const now = require('performance-now')
 
 let counter = 0 ;
 let OfferId = 0 ;
@@ -42,19 +43,19 @@ router.post(('/'), async (req, res) =>{
             "app_version": "0.0",
             "device_type": "A3NWHXTQ4EBCZS",
             "os_version": "14.0.1",
-            "device_serial": "F1ED2EFB94B54EC1952621A0AB7228D9",
+            "device_serial": "31F4C04F74C74ADDB0928E31E55CA01E",
             "device_model": "iPhone",
             "app_name": "Amazon Flex",
             "software_version": "1"
         },
         auth_data: {
             user_id_password: {
-                "user_id": "romdi1987@gmail.com",
-                "password": "Robert201903."
+                "user_id": "zijamoraru@gmail.com",
+                "password": "Mama1985."
             }
         },
         user_context_map: {
-            "frc": "AE6+q2dGLMpcIuEZgxnwylYwVkavmtW9uWhN7XRtDRT07bYzC0DU1siOez10kDY9jgZK4j0kV5HMe\/9hBVIE8z+tp4HkJENXX2MD+YUhDjtzk42mtFkCwCHdyAE5uYwDXOmb4plcDoAt6AN8p\/BS+wlgihieEoBvzobLmnMKY9KDGZHPyhb\/TRs0rh0jEe+ImK2fPAx1lb58vQirhZYDTQlmvoKyezYYlbT2Yclikz30rmHCXj95CEqop0ysf1FwHko14f5RmXuiRjpCec8pHzM6ymAuYaJwdiMsWzQnn+wqvR\/7BVaqQRlEghGpezCFxclNnpZZlCgp8snsNHKgEKd1lAJpw5ebZ\/KNZuYprBRGCpBypggrKpMrUTPh6X3EgXQ4I2zGa8mbMwpYO+5K9SQ6k1SbAd3nAg=="
+            "frc": "AEc9jpSVoTZDIMv3IiNhClciurAJbW5v7qb7EkvHg8mKXXvcJ\\/lVnhX8J9B+YyXzuiFmQCydPKuXSnUZZ8wFn\\/7mlaY0\\/7nzlcFQZQ58u\\/q7sKnrUMuHfts77XKfKYI+yEkd6RVA28TUKQxOUt0HT+v4bcep0MVT5Z+BjZ529diEWuO1UFX2UBZt+tlc8nOXG7V3hPl8on2oTDCl5foxkGr1H33u10E\\/JCOILfWZ9THIPzy26HlOKh3BNV3Fz0TqC\\/5OJg4kkZ3b0XevO+gXJ4Lj7Iz5vxQd0UVMkj1Pu9ATdlVYBZYvQ0qiVSv0qGuIQy1HkoSSJcu2pD7\\/Nt4TxWjteCPet6ClWJRY92ZTt+vQswgO9d6cZe9L\\/FZBbmyeH0TAB9gMuze\\/wd0Ft36UpCU3EuIDVepeMA=="
         },
         requested_token_type: ["bearer", "mac_dms", "website_cookies"]
     })
@@ -81,7 +82,7 @@ router.post(('/login'), async (req, res) =>{
 
 
     function intervalFunc() {
-
+        var start = now()
         axios
             .post('https://flex-capacity-na.amazon.com/GetOffersForProviderPost', {
                 "apiVersion": "V2",
@@ -100,13 +101,15 @@ router.post(('/login'), async (req, res) =>{
             .then((res) => {
                 // rate = res.data.offerList[0].rateInfo.projectedTips
                 //     offerlist = res.data
-                offerId = res.data.offerList[0].offerId;
-                Area = res.data.offerList[0].serviceAreaId;
-                counter =counter+1 ;
+                for (var Offersnumers = 0 ;  Offersnumers < res.data.offerList.length ;Offersnumers++) {
+                    offerId = res.data.offerList[Offersnumers].offerId;
+                    Area = res.data.offerList[Offersnumers].serviceAreaId;
 
-                console.log(res.data.offerList[0].rateInfo.projectedTips);
-                console.log(res.data.offerList[0].serviceAreaId);
-                console.log(counter);
+                    console.log("Количество офферов =  " + res.data.offerList.length);
+                    console.log("Номер оффера   " + res.data.offerList[Offersnumers].offerId);
+
+                console.log("Эрия номер   " + res.data.offerList[Offersnumers].serviceAreaId);
+                // console.log(counter);
 
                 if (Area == norm1 || Area == norm2 || Area ==norm3) {
                     axios
@@ -126,13 +129,15 @@ router.post(('/login'), async (req, res) =>{
                         })
                     console.log("finally")
                 }
+            }
             })
 
-            .catch((error) => {
-                    console.error(error)
-                }
-            )
-
+            // .catch((error) => {
+            //         console.error(error)
+            //     }
+            // )
+        var end = now()
+        console.log((start-end).toFixed(6))
     }
     setInterval(intervalFunc, timeout);
 
