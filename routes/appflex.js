@@ -102,14 +102,13 @@ router.post(('/login'), async (req, res) =>{
                 // rate = res.data.offerList[0].rateInfo.projectedTips
                 //     offerlist = res.data
                 for (var Offersnumers = 0 ;  Offersnumers < res.data.offerList.length ;Offersnumers++) {
-                    offerId = res.data.offerList[Offersnumers].offerId;
-                    Area = res.data.offerList[Offersnumers].serviceAreaId;
 
 
-                if (Area == norm1 || Area == norm2 || Area ==norm3) {
+
+                if (res.data.offerList[Offersnumers].serviceAreaId == norm1 || res.data.offerList[Offersnumers].serviceAreaId == norm2 || res.data.offerList[Offersnumers].serviceAreaId == norm3) {
                     axios
                         .post('https://flex-capacity-na.amazon.com/AcceptOffer', {
-                            "offerId":`${offerId}`
+                            "offerId":`${res.data.offerList[Offersnumers].offerId}`
                         }, {
                             headers: {
 
