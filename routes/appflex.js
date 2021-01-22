@@ -82,11 +82,12 @@ router.post(('/login'), async (req, res) =>{
 
 
     function intervalFunc() {
+     console.log(res.data.offerList.length)
         var start = now()
         axios
             .post('https://flex-capacity-na.amazon.com/GetOffersForProviderPost', {
                 "apiVersion": "V2",
-                "serviceAreaIds": ["fb0a94fe-a1b8-448e-bd95-9f3d91615574"]
+                "serviceAreaIds": ["e6f35b8e-000e-4c88-a838-29afe8de9335"]
             }, {
                 headers: {
                     "Accept": ":application/json",
