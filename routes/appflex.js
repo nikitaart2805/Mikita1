@@ -7,8 +7,8 @@ var Cookies = require('cookies')
 let counter = 0 ;
 let OfferId = 0 ;
 let Area = "";
-let norm1 = "22";
-let norm2 = "11be7ee1-1c35-47ed-85b6-376fff6b6966";
+let norm1 = "e6f6690b-89fd-41db-b8f8-30c1861f67d";
+let norm2 = "45ba0762-d282-445a-8901-9f62363eaac5";
 let norm3 = "a1e95b9a-9f11-476d-9af8-41677b64c255";
 let TOK =''
 
