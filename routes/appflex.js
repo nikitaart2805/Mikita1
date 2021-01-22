@@ -1,28 +1,31 @@
 const { Router } =require('express')
 const grabber = require('../models/grabber')
 const router = Router()
- const axios = require('axios')
- const now = require('performance-now')
-var Cookies = require('cookies')
+const axios = require('axios')
+const now = require('performance-now')
+
 let counter = 0 ;
 let OfferId = 0 ;
-let Area = "";
-let norm1 = "e6f6690b-89fd-41db-b8f8-30c1861f67d";
-let norm2 = "45ba0762-d282-445a-8901-9f62363eaac5";
-let norm3 = "a1e95b9a-9f11-476d-9af8-41677b64c255";
-let TOK =''
 
+let Area = "";
+let norm1 = "d282-445a-8901-9f62363eaac5";
+let norm2 = "e6f6690b-89fd-41db-b8f8-30c1861f67df";
+let norm3 = "a1e95b9a-9f11-476d-9af8-41677b64c255";
 router.get('/',(req,res) =>{
     res.render('index',{
         title:'appflex' ,
         isIndex : true
     })
 })
-
+router.get('/info',(req,res) =>{
+    res.render('info',{
+        title:'info' ,
+        isInfo : true
+    })
+})
 router.get('/login',(req,res) =>{
     res.render('login',{
         title:'Login' ,
-        "token": TOK,
         isLogin : true
     })
 })
@@ -40,29 +43,27 @@ router.post(('/'), async (req, res) =>{
             "app_version": "0.0",
             "device_type": "A3NWHXTQ4EBCZS",
             "os_version": "14.0.1",
-            "device_serial": "F1ED2EFB94B54EC1952621A0AB7228D9",
+            "device_serial": "31F4C04F74C74ADDB0928E31E55CA01E",
             "device_model": "iPhone",
             "app_name": "Amazon Flex",
             "software_version": "1"
         },
         auth_data: {
             user_id_password: {
-                "user_id": "romdi1987@gmail.com",
-                "password": "Robert201903."
+                "user_id": "zijamoraru@gmail.com",
+                "password": "Mama1985."
             }
         },
         user_context_map: {
-            "frc": "AE6+q2dGLMpcIuEZgxnwylYwVkavmtW9uWhN7XRtDRT07bYzC0DU1siOez10kDY9jgZK4j0kV5HMe\\/9hBVIE8z+tp4HkJENXX2MD+YUhDjtzk42mtFkCwCHdyAE5uYwDXOmb4plcDoAt6AN8p\\/BS+wlgihieEoBvzobLmnMKY9KDGZHPyhb\\/TRs0rh0jEe+ImK2fPAx1lb58vQirhZYDTQlmvoKyezYYlbT2Yclikz30rmHCXj95CEqop0ysf1FwHko14f5RmXuiRjpCec8pHzM6ymAuYaJwdiMsWzQnn+wqvR\\/7BVaqQRlEghGpezCFxclNnpZZlCgp8snsNHKgEKd1lAJpw5ebZ\\/KNZuYprBRGCpBypggrKpMrUTPh6X3EgXQ4I2zGa8mbMwpYO+5K9SQ6k1SbAd3nAg=="
+            "frc": "AEc9jpSVoTZDIMv3IiNhClciurAJbW5v7qb7EkvHg8mKXXvcJ\\/lVnhX8J9B+YyXzuiFmQCydPKuXSnUZZ8wFn\\/7mlaY0\\/7nzlcFQZQ58u\\/q7sKnrUMuHfts77XKfKYI+yEkd6RVA28TUKQxOUt0HT+v4bcep0MVT5Z+BjZ529diEWuO1UFX2UBZt+tlc8nOXG7V3hPl8on2oTDCl5foxkGr1H33u10E\\/JCOILfWZ9THIPzy26HlOKh3BNV3Fz0TqC\\/5OJg4kkZ3b0XevO+gXJ4Lj7Iz5vxQd0UVMkj1Pu9ATdlVYBZYvQ0qiVSv0qGuIQy1HkoSSJcu2pD7\\/Nt4TxWjteCPet6ClWJRY92ZTt+vQswgO9d6cZe9L\\/FZBbmyeH0TAB9gMuze\\/wd0Ft36UpCU3EuIDVepeMA=="
         },
         requested_token_type: ["bearer", "mac_dms", "website_cookies"]
     })
         .then(res => {
-            TOK = res.data.response.success.tokens.bearer.access_token
-            console.log(TOK)
-            // var token = Cookies.get('token', `${TOK}` )
+            token = res.data.response.success.tokens.bearer.access_token;
+            console.log(token);
 
         })
-
     // const user  = new grabber ({
     //     "email": "req.body.email",
     //     "password" : "req.body.password" ,
@@ -71,18 +72,16 @@ router.post(('/'), async (req, res) =>{
     //
     // })
     // await user.save()
-
+    console.log("хуй")
 
 
 })
 router.post(('/login'), async (req, res) =>{
     let token = req.body.token;
-    console.log(token)
-   let timeout = req.body.timeout;
+    let timeout = req.body.timeout;
 
 
     function intervalFunc() {
-        console.log(res.data.offerList.length)
         var start = now()
         axios
             .post('https://flex-capacity-na.amazon.com/GetOffersForProviderPost', {
@@ -103,35 +102,40 @@ router.post(('/login'), async (req, res) =>{
                 // rate = res.data.offerList[0].rateInfo.projectedTips
                 //     offerlist = res.data
                 for (var Offersnumers = 0 ;  Offersnumers < res.data.offerList.length ;Offersnumers++) {
+                    offerId = res.data.offerList[Offersnumers].offerId;
+                    Area = res.data.offerList[Offersnumers].serviceAreaId;
+
+                    console.log("Количество офферов =  " + res.data.offerList.length);
+                    console.log("Номер оффера   " + res.data.offerList[Offersnumers].offerId);
+
+                    console.log("Эрия номер   " + res.data.offerList[Offersnumers].serviceAreaId);
+                    // console.log(counter);
+
+                    if (Area == norm1 || Area == norm2 || Area ==norm3) {
+                        axios
+                            .post('https://flex-capacity-na.amazon.com/AcceptOffer', {
+                                "offerId":`${offerId}`
+                            }, {
+                                headers: {
+
+                                    "x-amz-access-token": `${token}`,
 
 
 
-                if (res.data.offerList[Offersnumers].serviceAreaId == norm1 || res.data.offerList[Offersnumers].serviceAreaId == norm2 || res.data.offerList[Offersnumers].serviceAreaId == norm3) {
-                    axios
-                        .post('https://flex-capacity-na.amazon.com/AcceptOffer', {
-                            "offerId":`${res.data.offerList[Offersnumers].offerId}`
-                        }, {
-                            headers: {
+                                    "User-Agent": "iOS/13.6.1(iPhone Darwin) Model/iPhone Platform/iPhone12,5 RabbitiOS/2.66.5"
 
-                                "x-amz-access-token": `${token}`,
+                                }
 
-
-
-                                "User-Agent": "iOS/13.6.1(iPhone Darwin) Model/iPhone Platform/iPhone12,5 RabbitiOS/2.66.5"
-
-                            }
-
-                        })
-                    console.log("finally")
+                            })
+                        console.log("finally")
+                    }
                 }
-            }
             })
 
-            .catch((error) => {
-                    console.log(error);
-
-                }
-            )
+        // .catch((error) => {
+        //         console.error(error)
+        //     }
+        // )
         var end = now()
         console.log((start-end).toFixed(6))
     }
@@ -139,5 +143,4 @@ router.post(('/login'), async (req, res) =>{
 
 
 })
-
 module.exports = router
