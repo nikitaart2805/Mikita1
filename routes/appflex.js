@@ -33,32 +33,41 @@ router.get('/login',(req,res) =>{
 
 router.post(('/'), async (req, res) =>{
     axios.post('https://api.amazon.com/auth/register', {
-        requested_extensions: ["device_info", "customer_info"],
-        cookies: {
-            "website_cookies": [],
-            "domain": ".amazon.com"
-        },
-        registration_data: {
-            "domain": "Device",
-            "app_version": "0.0",
-            "device_type": "A3NWHXTQ4EBCZS",
-            "os_version": "14.0.1",
-            "device_serial": "31F4C04F74C74ADDB0928E31E55CA01E",
-            "device_model": "iPhone",
-            "app_name": "Amazon Flex",
-            "software_version": "1"
-        },
-        auth_data: {
-            user_id_password: {
-                "user_id": "zijamoraru@gmail.com",
-                "password": "Mama1985."
-            }
-        },
-        user_context_map: {
-            "frc": "AEc9jpSVoTZDIMv3IiNhClciurAJbW5v7qb7EkvHg8mKXXvcJ\\/lVnhX8J9B+YyXzuiFmQCydPKuXSnUZZ8wFn\\/7mlaY0\\/7nzlcFQZQ58u\\/q7sKnrUMuHfts77XKfKYI+yEkd6RVA28TUKQxOUt0HT+v4bcep0MVT5Z+BjZ529diEWuO1UFX2UBZt+tlc8nOXG7V3hPl8on2oTDCl5foxkGr1H33u10E\\/JCOILfWZ9THIPzy26HlOKh3BNV3Fz0TqC\\/5OJg4kkZ3b0XevO+gXJ4Lj7Iz5vxQd0UVMkj1Pu9ATdlVYBZYvQ0qiVSv0qGuIQy1HkoSSJcu2pD7\\/Nt4TxWjteCPet6ClWJRY92ZTt+vQswgO9d6cZe9L\\/FZBbmyeH0TAB9gMuze\\/wd0Ft36UpCU3EuIDVepeMA=="
-        },
-        requested_token_type: ["bearer", "mac_dms", "website_cookies"]
-    })
+  "requested_token_type" : [
+    "bearer",
+    "mac_dms",
+    "website_cookies"
+  ],
+  "cookies" : {
+    "website_cookies" : [
+
+    ],
+    "domain" : ".amazon.com"
+  },
+  "registration_data" : {
+    "domain" : "Device",
+    "app_version" : "0.0",
+    "software_version" : "1",
+    "os_version" : "13.7",
+    "device_serial" : "C7F04DAD8D704EF698B8A2D54B628F98",
+    "device_type" : "A3NWHXTQ4EBCZS",
+    "device_model" : "iPhone",
+    "app_name" : "Amazon Flex"
+  },
+  "auth_data" : {
+    "user_id_password" : {
+      "user_id" : "mikitaart2805@gmail.com",
+      "password" : "Gomer6723340"
+    }
+  },
+  "requested_extensions" : [
+    "device_info",
+    "customer_info"
+  ],
+  "user_context_map" : {
+    "frc" : "AFf+jjBUj9uGBMraxStJCO3ykrUJd00DHSuGT3DHkp6gB\/NN\/Fvw5+EKfTvJAZeM1ZBtiZF4RtAlyyd2\/ydm0zwKi+24c4WhuvrYH\/8fRxX3YeW97CwsfQEVLpVmZfH6Q3fMa7AUE9dPzQ1PpRN2u73MDTDM\/fzMIfW78ukMIa8whLfxTQhGJedd21CJeTz6rat1oZykrtnoTSvQrIKb1wxC73IrmPGZ3GMuKGWMvozyJO6ID0OaLZGteo4DJmFWLHBQleZzCe3nfF5QG4f9rEG+\/zIrdMQZZEceDaqSo9HLv9eF9fGOtjoTWKbCIU+q4wuOv7bI\/0EQ3CdJ4bhgIFZzEDuDLUOexdII8jnccUO30H+CmMjGx2sdZLlqo4eFcHmWDvMGIyOyFgBFH4o1TxihxRGA760Aqg=="
+  }
+})
         .then(res => {
             token = res.data.response.success.tokens.bearer.access_token;
             console.log(token);

@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 const PORT = process.env.PORT || 8080;
 async function start() {
     try {
-    await mongoose.connect('mongodb+srv://Mikita:1234@cluster0.koira.mongodb.net/Mern?retryWrites=true&w=majority'),{
+    await mongoose.connect('mongodb+srv://Mikita:12341234@flex.shaji.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'),{
         useNewUrlParser: true,
         useUnifiedTopology :true ,
         useCreateIndex: true
