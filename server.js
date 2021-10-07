@@ -9,7 +9,7 @@ const exphbs = require('express-handlebars')
 const app = express();
 const appflex =require ('./routes/appflex')
 var corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "https://ec2-35-171-16-68.compute-1.amazonaws.com:8080/"
 };
 const hbs = exphbs.create({
     defaultLayout: 'main' ,
